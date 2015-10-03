@@ -7,69 +7,20 @@
 
         <!-- Latest compiled and minified CSS -->
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
-        <style>
-            .stat{
-                position:absolute;
-                z-index:300;
-                left:200px;
-                
-                width:100px;
-            }
-            iframe{
-                width:1000px;
-                height:1000px;
-            }
-            html, body {
-                height: 100%;
-                margin: 0;
-                padding: 0;
-            }
-            #map {
-                height: 100%;
-
-
-            }
-            #feed{
-                overflow-y: scroll;
-                height:350px;
-                //width:350px;
-                background-color: rgba(25, 20, 20, 0.7);
-                color:white;
-                font-family: Verdana, Geneva, sans-serif;
-            }
-            .map-holder{
-                height:350px;
-
-            }
-
-            ::-webkit-scrollbar {
-                width: 12px;
-            }
-
-            ::-webkit-scrollbar-track {
-                -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3); 
-                border-radius: 10px;
-            }
-
-            ::-webkit-scrollbar-thumb {
-                border-radius: 10px;
-                -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.5); 
-            }
-        </style>
+        <link rel="stylesheet" href="css/style.css">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
     </head>
     <body>
 
         <div class="stat">
-            
-            <input type="text" class="form-control" id="usr" placeholder="Search">
+            <input type="text" class="width-control" id="usr" placeholder="Search">
            
         </div>
 
         <div class="row">
 
-            <div class="map-holder col-md-9">
+            <div class="col-md-9">
                 <div id="map"></div>
             </div>
 
@@ -93,87 +44,7 @@
         </div>
 
 
-        <script>
-
-
-
-
-
-
-            function initMap() {
-                var uluru = {lat: -25.363, lng: 131.044};
-                var map = new google.maps.Map(document.getElementById('map'), {
-                    zoom: 4,
-                    center: uluru
-                });
-
-                var contentString = '<div id="content">' +
-                        '<div id="siteNotice">' +
-                        '</div>' +
-                        '<h1 id="firstHeading" class="firstHeading">Uluru</h1>' +
-                        '<div id="bodyContent">' +
-                        '<p><b>Uluru</b>, also referred to as <b>Ayers Rock</b>, is a large ' +
-                        'sandstone rock formation in the southern part of the ' +
-                        'Northern Territory, central Australia. It lies 335&#160;km (208&#160;mi) ' +
-                        'south west of the nearest large town, Alice Springs; 450&#160;km ' +
-                        '(280&#160;mi) by road. Kata Tjuta and Uluru are the two major ' +
-                        'features of the Uluru - Kata Tjuta National Park. Uluru is ' +
-                        'sacred to the Pitjantjatjara and Yankunytjatjara, the ' +
-                        'Aboriginal people of the area. It has many springs, waterholes, ' +
-                        'rock caves and ancient paintings. Uluru is listed as a World ' +
-                        'Heritage Site.</p>' +
-                        '<p>Attribution: Uluru, <a href="https://en.wikipedia.org/w/index.php?title=Uluru&oldid=297882194">' +
-                        'https://en.wikipedia.org/w/index.php?title=Uluru</a> ' +
-                        '(last visited June 22, 2009).</p>' +
-                        '</div>' +
-                        '</div>';
-
-                var infowindow = new google.maps.InfoWindow({
-                    content: contentString
-                });
-
-                var marker = new google.maps.Marker({
-                    position: uluru,
-                    map: map,
-                    title: 'Uluru (Ayers Rock)'
-                    //icon: iconBase + 'schools_maps.png' 
-                    
-                });
-                
-                
-                
-                
-                
-                
-                marker.addListener('click', function () {
-                    infowindow.open(map, marker);
-                });
-
-                var marker2 = new google.maps.Marker({
-                    position: {lat: -22.363, lng: 129.044},
-                    map: map,
-                    title: 'P2'
-                });
-                var marker3 = new google.maps.Marker({
-                    position: {lat: -20.363, lng: 121.044},
-                    map: map,
-                    title: 'P3'
-                });
-                var marker4 = new google.maps.Marker({
-                    position: {lat: -25.363, lng: 14.044},
-                    map: map,
-                    title: 'P4'
-                });
-                var marker5 = new google.maps.Marker({
-                    position: {lat: -28.363, lng: 113.044},
-                    map: map,
-                    title: 'P5'
-                });
-
-
-            }
-
-        </script>
+        <script type = "text/javascript" src="js/index.js"></script>
         <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAZU-mi_Dc4h54fwkmN-8QdmnHzAaF8_Jw&callback=initMap"
         async defer></script>
     </body>
