@@ -1,9 +1,9 @@
 
             var temp;
-
+            var map;
             function initMap() {
                 var uluru = {lat: 25.2916097, lng: -107.2902839};
-                var map = new google.maps.Map(document.getElementById('map'), {
+                map = new google.maps.Map(document.getElementById('map'), {
                     zoom: 4,
                     center: uluru
                 });
@@ -172,6 +172,47 @@
 
 
             }
+
+            (function ($) {
+    $(document).ready(function() {
+        //6.309630, 22.637847
+        $("#africa").click( function() {
+            map.setCenter({lat: 6.309630, lng: 22.637847});
+            map.setZoom(3);
+        });
+//37.975641, 75.551522
+        $("#asia").click( function() {
+            map.setCenter({lat: 37.975641, lng: 75.551522});
+            map.setZoom(3);
+        });
+//-25.981453, 134.701913
+        $("#australia").click( function() {
+            map.setCenter({lat: -25.981453, lng: 134.701913});
+            map.setZoom(3);
+        });
+//48.557560, 16.489022
+        $("#europe").click( function() {
+            map.setCenter({lat: 48.557560, lng: 16.489022});
+            map.setZoom(3);
+        });
+//39.209689, -98.696382
+        $("#northAmerica").click( function() {
+            map.setCenter({lat: 39.209689, lng: -98.696382});
+            map.setZoom(3);
+        });
+//-13.350834, -58.913030
+        $("#southAmerica").click( function() {
+            map.setCenter({lat: -13.350834, lng: -58.913030});
+            map.setZoom(3);
+        });
+        //41.329716, 0.751057
+        $("#world").click( function() {
+            map.setCenter({lat: 41.329716, lng: 0.751057});
+            map.setZoom(1);
+        });
+
+    });
+}(jQuery));
 
 
 

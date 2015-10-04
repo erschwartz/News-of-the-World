@@ -193,7 +193,7 @@ body {
 .portfolio-modal .modal-content {
     padding: 5px 0;
     max-height: 60%;
-    max-width: 60%
+    max-width: 60%;
     border: 0;
     border-radius: 0;
     text-align: center;
@@ -213,6 +213,10 @@ body {
   font-weight: 400;
 }
 
+.padding-button {
+    padding-bottom: 7px;
+}
+
 .modal-p {
     color: #2c2c2c;
     font-family: "HelveticaNeue-Light", "Helvetica", sans-serif;
@@ -230,6 +234,13 @@ body {
   padding-left: 0;
 }
 
+h3 {
+    padding-top: -10px;
+    margin-left: 20px;
+    font-family: Montserrat;
+    color: #661821;
+}
+
 /*.no-border {*/
     /*border: solid 0px #c9c9c9;*/
 /*}*/
@@ -245,7 +256,7 @@ font-family: Verdana, Geneva, sans-serif;
 
 .side-section {
     background-color: #e8e8e8;
-    height: 80vh;
+    height: 90vh;
 }
 
 .link{

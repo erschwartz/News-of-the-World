@@ -10,7 +10,9 @@
         <link rel="stylesheet" href="css/style.css">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
-        <script src="./jquery.slickwrap.js" type="text/javascript"></script>
+        <link rel="stylesheet" href="css/animate.css">
+        <script src="js/animations.js" type="text/javascript"></script>
+
     </head>
     <body>
 
@@ -45,8 +47,35 @@
     <div class = "bottom-section row no-gutter">
         <div class="col-md-3 side-section">
             <br>
-            <!-- <object type="image/svg+xml" data="img/MapKey.svg">Your browser does not support SVG</object> -->
-            <button type="button" class="no-border"><object type="image/svg+xml" data="img/southamerica.svg">Your browser does not support SVG</object></button>
+            <h3>Map Key</h3>
+            <a href="#" class = "padding-button">
+                <img src="img/africa.svg" alt="A sample SVG button." id="africa"/>
+            </a>
+            <br><br>
+            <a href="#" class = "padding-button">
+                <img src="img/asia.svg" alt="A sample SVG button." id="asia"/>
+            </a>
+            <br><br>
+            <a href="#" class = "padding-button">
+                <img src="img/australia.svg" alt="A sample SVG button." id="australia"/>
+            </a>
+            <br><br>
+            <a href="#" class = "padding-button">
+                <img src="img/europe.svg" alt="A sample SVG button." id="europe"/>
+            </a>
+            <br><br>
+            <a href="#" class = "padding-button">
+                <img src="img/northamerica.svg" alt="A sample SVG button." id="northAmerica"/>
+            </a>
+            <br><br>
+            <a href="#" class = "padding-button">
+                <img src="img/southamerica.svg" alt="A sample SVG button." id="southAmerica"/>
+            </a>
+            <br><br>
+            <a href="#" class = "padding-button">
+                <img src="img/world.svg" alt="A sample SVG button." id="world"/>
+            </a>
+
         </div>
         <div class="col-md-6">
             <div id="map"></div>
@@ -57,7 +86,7 @@
             </div>
         </div>
 
-
+<center>
         <div class="portfolio-modal modal fade" id="About" tabindex="-1" role="dialog" aria-hidden="true">
                 <div class="modal-content">
                 <center>
@@ -77,6 +106,7 @@
                                 </center>
                             </div>
                         </div>
+                        </center>
 
 
         <script type = "text/javascript" src="js/rss.js"></script>
