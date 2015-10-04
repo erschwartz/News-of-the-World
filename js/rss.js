@@ -289,34 +289,50 @@ function initMap() {
         var urlParam="world";
         urlSTR = 'https://ajax.googleapis.com/ajax/services/search/news?v=1.0&q='+urlParam+'&rsz=8';
         $.ajax({
-                        url: 'http://sleepy-sierra-9008.herokuapp.com/', 
-                        type: "POST",
-                        data: urlSTR,
-                        success: function (data) {
-                            data = JSON.stringify(eval('(' + data + ')'));
-                            data = JSON.parse(data);
-                            if (data.responseData === null) {
+            url: 'http://sleepy-sierra-9008.herokuapp.com/', 
+            type: "POST",
+            data: urlSTR,
+            success: function (data) {
+                data = JSON.stringify(eval('(' + data + ')'));
+                data = JSON.parse(data);
+                if (data.responseData === null) {
                                 $("#feedItems").append("<center><h1 style='color: #999999;'>Error! Please try your search again!</h1>");
                             } else {
                                 moreResults = data.responseData.cursor.moreResultsUrl;
-                                data.responseData.results.forEach(function (d) {
-                                    var randomLat = (Math.floor(Math.random() * 7) + 1) * (Math.floor(Math.random()*2) === 1 ? 1 : -1);
-                                    var randomLng = (Math.floor(Math.random() * 7) + 1) * (Math.floor(Math.random()*2) === 1 ? 1 : -1);
-                                    var link = d.unescapedUrl;
-                                    var title = d.title;
-                                    var content = d.content;
+                                var country = "United States";
+                                var res = data.responseData.results.forEach(function (d) {
                                     var publisher = d.publisher;
-                                    $("#feedItems").append("<div class = 'feed-cell'><a href='"+link+"' target='_blank'><h1>"+title+"</h1><p>"+content+"</p><h3>"+publisher+"   <button type='button' class='myButton' id='link-go' style='color: rgb(193,39,45) !important'><center><span class='glyphicon glyphicon-chevron-right' aria-hidden='true'></span></center></button></h3></a></div>");
-                                    addMarker( {lat: 43.0759678 + randomLat, lng: -107.2902839 + randomLng}, '', link, title, d.content);
+                                    //console.log(publisher);
+                                    
+                                    for (value in newsfeedArray) {
+                                        console.log(newsfeedArray[value]);
+                                        if (newsfeedArray[value].indexOf(publisher) > -1) {
+                                            country = value;
+                                            break;
+                                        }
+                                    }
+                                    console.log(country);
+                                    var obj=getLocation(country,d);
+                                    
+                                    
                                 });
-$("#feedItems").append("<center><a href='"+moreResults+"' target='_blank'><div class = 'more-button'><button type = 'button' id = 'my-more-button'><h4>Show me more!</h4></button></div></a></center>");
-}
 
-},
-failure: function (err) {
-    $("#feed").append("<center><h1 style='color: #999999;'>Error! Please try your search again!</h1>");
-}
-});
+
+                                if(flag){
+                                    $("#readmore").append("<center><a href='"+moreResults+"' target='_blank'><div class = 'more-button'><button type = 'button' id = 'my-more-button'><h4>Show me more!</h4></button></div></a></center>");
+                                    flag=0;
+                                }
+                                
+                                
+
+
+                            }
+
+                        },
+            failure: function (err) {
+                $("#feed").append("<center><h1 style='color: #999999;'>Error! Please try your search again!</h1>");
+            }
+        });
 });
 
                     // click on search button to search.
@@ -324,27 +340,22 @@ failure: function (err) {
                     $(".myButton").on('click', function () {
 
 
-                       deleteMarkers(); 
-                       var str=$("#search").val();
-                       var arr=str.split(" ");
-                       var urlParam="";
-                       for(i=0; i<arr.length;i++){
+                     deleteMarkers(); 
+                     var str=$("#search").val();
+                     var arr=str.split(" ");
+                     var urlParam="";
+                     for(i=0; i<arr.length;i++){
                         if(i>1){
                             urlParam+='%20';
                         }
                         urlParam+=arr[i];
                     }
                     urlSTR = 'https://ajax.googleapis.com/ajax/services/search/news?v=1.0&q='+urlParam+'&rsz=8';
-                   var request =  $.ajax({
+                    var request =  $.ajax({
                         url: 'http://sleepy-sierra-9008.herokuapp.com/', //http://localhost:8080/
                         type: "POST",
                         data: urlSTR,
-                        //http://rss.nytimes.com/services/xml/rss/nyt/World.xml
-                        //http://feeds.bbci.co.uk/news/rss.xml?edition=int
-                        //http://america.aljazeera.com/content/ajam/articles.rss
-                        //http://feeds.reuters.com/Reuters/worldNews
                         success: function (data) {
-
                             //console.log(JSON.stringify(eval('(' + data + ')')));
                             data = JSON.stringify(eval('(' + data + ')'));
                             data = JSON.parse(data);
@@ -355,20 +366,20 @@ failure: function (err) {
                                 $("#feedItems").append("<center><h1 style='color: #999999;'>Error! Please try your search again!</h1>");
                             } else {
                                 moreResults = data.responseData.cursor.moreResultsUrl;
-
+                                var country = "United States";
                                 var res = data.responseData.results.forEach(function (d) {
+                                    var publisher = d.publisher;
+                                    //console.log(publisher);
                                     
-                            	var country="United States";
-                            	for(i=0; i<Object.keys(jsonArr).length	; i++){
-                            		if((d.content+d.title ).indexOf(jsonArr[i].name)>-1){
-                            			console.log(jsonArr[i].name);
-                            			country=jsonArr[i].name;
-                            			break;
-                            		}
-                            	}
-
-
-                            	var obj=getLocation(country,d);
+                                    for (value in newsfeedArray) {
+                                        console.log(newsfeedArray[value]);
+                                        if (newsfeedArray[value].indexOf(publisher) > -1) {
+                                            country = value;
+                                            break;
+                                        }
+                                    }
+                                    console.log(country);
+                                    var obj=getLocation(country,d);
                                     
                                     
                                 });
@@ -376,26 +387,26 @@ failure: function (err) {
 
                                 if(flag){
                                     $("#readmore").append("<center><a href='"+moreResults+"' target='_blank'><div class = 'more-button'><button type = 'button' id = 'my-more-button'><h4>Show me more!</h4></button></div></a></center>");
-                                flag=0;
+                                    flag=0;
                                 }
                                 
                                 
 
-                               
+
                             }
 
-},
-failure: function (err) {
-    $("#feedItems").append("<center><h1 style='color: #999999;'>Error! Please try your search again!</h1>");
-}
-});
+                        },
+                        failure: function (err) {
+                            $("#feedItems").append("<center><h1 style='color: #999999;'>Error! Please try your search again!</h1>");
+                        }
+                    });
 
 
 
 });
 
 
-            function getLocation(country , d){
+function getLocation(country , d){
             	//https://maps.googleapis.com/maps/api/geocode/json?address=China&key=AIzaSyDa9qiut_2abe13UhwEIlWJSwqR9nCPTwY
             	var longitude;
             	var latitude;
@@ -405,27 +416,26 @@ failure: function (err) {
                         type: "POST",
                         data: urlSTR,
                         success: function (data) {
-                        	 data = JSON.parse(data);
-                        	 console.log(data);
+                          data = JSON.parse(data);
+                        	 //console.log(data);
                         	 latitude=data.results[0].geometry.location.lat;
                         	 longitude=data.results[0].geometry.location.lng;
-                        	 console.log(latitude);
+                        	 //console.log(latitude);
                         	 var obj=[];
                         	 obj[0]=latitude;
                         	 obj[1]=longitude;
-                        	console.log(obj[0]);								
-                                var link = d.unescapedUrl;
-                                var title = d.title;
+                        	//console.log(obj[0]);								
+                            var link = d.unescapedUrl;
+                            var title = d.title;
+                            var randomLat = (Math.floor(Math.random() * 7) + 1) * (Math.floor(Math.random()*2) === 1 ? 1 : -1);
+                            var randomLng = (Math.floor(Math.random() * 7) + 1) * (Math.floor(Math.random()*2) === 1 ? 1 : -1);
+                            var description=d.content;
 
-                                var randomLat = (Math.floor(Math.random() * 7) + 1) * (Math.floor(Math.random()*2) === 1 ? 1 : -1);
-                                var randomLng = (Math.floor(Math.random() * 7) + 1) * (Math.floor(Math.random()*2) === 1 ? 1 : -1);
-                                var description=d.content;
+                            var content = d.content;
+                            var publisher = d.publisher;
+                            $("#feedItems").append("<div class = 'feed-cell'><a href='"+link+"' target='_blank'><h1>"+title+"</h1><p>"+content+"</p><h3>"+publisher+"   <button type='button' class='myButton' id='link-go' style='color: rgb(193,39,45) !important'><center><span class='glyphicon glyphicon-chevron-right' aria-hidden='true'></span></center></button></h3></a></div>");
+                            addMarker( {lat: latitude + randomLat, lng: longitude + randomLng}, '', link, title, d.content);
 
-                                var content = d.content;
-                                var publisher = d.publisher;
-                                $("#feedItems").append("<div class = 'feed-cell'><a href='"+link+"' target='_blank'><h1>"+title+"</h1><p>"+content+"</p><h3>"+publisher+"   <button type='button' class='myButton' id='link-go' style='color: rgb(193,39,45) !important'><center><span class='glyphicon glyphicon-chevron-right' aria-hidden='true'></span></center></button></h3></a></div>");
-                            	addMarker( {lat: latitude + randomLat, lng: longitude + randomLng}, '', link, title, d.content);
-                  
 
 
 
@@ -437,9 +447,9 @@ failure: function (err) {
 
 
 
-            	
 
-            }
+
+}
 
 
 
