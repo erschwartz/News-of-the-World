@@ -277,7 +277,8 @@ var windowFlag=0;
 var moreResults;
 var flag=1;
 var callValue = 0;
-var urlSTRarray = ['us', 'au', 'in','id','kr','en_bw','it','cs_cz','fr','en_ke','en_il','in','cn','fr_ca','en_my','uk_ua','no_no','de_at','en_ng','en_ug','ru_ua','en_na','en_za','en_ch','es_cl','es_co','es_ve','nl_nl','sv_se','en_tz','th','en_zw','uk'];
+var titlesArray = [];
+var urlSTRarray = ['us','au','id','in','cn','uk'];
 function initMap() {
     var uluru = {lat: 25.2916097, lng: -107.2902839};
     map = new google.maps.Map(document.getElementById('map'), {
@@ -292,59 +293,53 @@ function initMap() {
     $(document).ready( function() {
         $("#feedItems").append("<div class='intro-header'><h2>Your default search keyword is set to <b>world</b>. Give it a try!</h2></div>");
         var urlParam="world";
-        urlSTR = 'https://ajax.googleapis.com/ajax/services/search/news?v=1.0&q='+urlParam+'&rsz=8';
-        $.ajax({
-            url: 'http://sleepy-sierra-9008.herokuapp.com/', 
-            type: "POST",
-            data: urlSTR,
-            success: function (data) {
-                data = JSON.stringify(eval('(' + data + ')'));
-                data = JSON.parse(data);
-                if (data.responseData === null) {
-                    $("#feedItems").append("<center><h1 style='color: #999999;'>Error! Please try your search again!</h1>");
-                } else {
-                    moreResults = data.responseData.cursor.moreResultsUrl;
-                    var country = "United States";
-                    var res = data.responseData.results.forEach(function (d) {
-                        var publisher = d.publisher;
+        while (callValue < urlSTRarray.length) {
+            urlSTR = 'https://ajax.googleapis.com/ajax/services/search/news?v=1.0&q='+urlParam+'&rsz=8&ned='+urlSTRarray[callValue];
+            callValue++;
+            $.ajax({
+                url: 'http://sleepy-sierra-9008.herokuapp.com/', 
+                type: "POST",
+                data: urlSTR,
+                success: function (data) {
+                    data = JSON.stringify(eval('(' + data + ')'));
+                    data = JSON.parse(data);
+                    if (data.responseData === null) {
+                        $("#feedItems").append("<center><h1 style='color: #999999;'>Error! Please try your search again!</h1>");
+                    } else {
+                        moreResults = data.responseData.cursor.moreResultsUrl;
+                        var country = "United States";
+                        var res = data.responseData.results.forEach(function (d) {
+                            var publisher = d.publisher;
+                            var title = d.title;
+                            if (titlesArray.indexOf(title) === -1) {
                                     //console.log(publisher);
                                     
                                     for (value in newsfeedArray) {
-                                        console.log(newsfeedArray[value]);
+                                        // console.log(newsfeedArray[value]);
                                         if (newsfeedArray[value].indexOf(publisher) > -1) {
                                             country = value;
                                             break;
                                         }
                                     }
-                                    console.log(country);
+                                    // console.log(country);
                                     var obj=getLocation(country,d);
-                                    
-                                    
+                                    titlesArray.push(title);
+                                }
                                 });
-
-
-                    if(flag){
-                        $("#readmore").append("<center><a href='"+moreResults+"' target='_blank'><div class = 'more-button'><button type = 'button' id = 'my-more-button'><h4>Show me more!</h4></button></div></a></center>");
-                        flag=0;
                     }
-
-
-
-
+                },
+                failure: function (err) {
+                    $("#feed").append("<center><h1 style='color: #999999;'>Error! Please try your search again!</h1>");
                 }
-
-            },
-            failure: function (err) {
-                $("#feed").append("<center><h1 style='color: #999999;'>Error! Please try your search again!</h1>");
-            }
-        });
+            });
+}
+titlesArray = [];
+callValue++;
 });
 
                     // click on search button to search.
 
                     $(".myButton").on('click', function () {
-                        while (callValue < urlSTRarray.length) {
-
                            deleteMarkers(); 
                            var str=$("#search").val();
                            var arr=str.split(" ");
@@ -355,6 +350,7 @@ function initMap() {
                             }
                             urlParam+=arr[i];
                         }
+                        while (callValue < urlSTRarray.length) {
                         urlSTR = 'https://ajax.googleapis.com/ajax/services/search/news?v=1.0&q='+urlParam+'&rsz=8&ned='+urlSTRarray[callValue];
                         callValue++;
                         var request =  $.ajax({
@@ -362,12 +358,10 @@ function initMap() {
                         type: "POST",
                         data: urlSTR,
                         success: function (data) {
-                            //console.log(JSON.stringify(eval('(' + data + ')')));
+                            
                             data = JSON.stringify(eval('(' + data + ')'));
                             data = JSON.parse(data);
                             $("#feedItems").empty();
-                            
-                            
                             if (data.responseData === null) {
                                 $("#feedItems").append("<center><h1 style='color: #999999;'>Error! Please try your search again!</h1>");
                             } else {
@@ -375,30 +369,25 @@ function initMap() {
                                 var country = "United States";
                                 var res = data.responseData.results.forEach(function (d) {
                                     var publisher = d.publisher;
-                                    //console.log(publisher);
+                                    var title = d.title;
+                                    if (titlesArray.indexOf(title) === -1) {
+                                    // //console.log(publisher);
                                     
                                     for (value in newsfeedArray) {
-                                        console.log(newsfeedArray[value]);
+                                        // console.log(newsfeedArray[value]);
                                         if (newsfeedArray[value].indexOf(publisher) > -1) {
                                             country = value;
                                             break;
                                         }
                                     }
-                                    console.log(country);
+                                    // console.log(country);
                                     var obj=getLocation(country,d);
-                                    
-                                    
+                                    titlesArray.push(title);
+                                }
+
+
+
                                 });
-
-
-                                // if(flag){
-                                //     $("#readmore").append("<center><a href='"+moreResults+"' target='_blank'><div class = 'more-button'><button type = 'button' id = 'my-more-button'><h4>Show me more!</h4></button></div></a></center>");
-                                //     flag=0;
-                                // }
-                                
-                                
-
-
                             }
 
                         },
@@ -406,33 +395,35 @@ function initMap() {
                             $("#feedItems").append("<center><h1 style='color: #999999;'>Error! Please try your search again!</h1>");
                         }
                     });
-    }
+}
+callValue = 0;
+titlesArray = [];
 });
 
 
 function getLocation(country , d){
-            	//https://maps.googleapis.com/maps/api/geocode/json?address=China&key=AIzaSyDa9qiut_2abe13UhwEIlWJSwqR9nCPTwY
-            	var longitude;
-            	var latitude;
-            	var urlSTR='https://maps.googleapis.com/maps/api/geocode/json?address='+country+'&key=AIzaSyDa9qiut_2abe13UhwEIlWJSwqR9nCPTwY';
-            	$.ajax({
+                //https://maps.googleapis.com/maps/api/geocode/json?address=China&key=AIzaSyDa9qiut_2abe13UhwEIlWJSwqR9nCPTwY
+                var longitude;
+                var latitude;
+                var urlSTR='https://maps.googleapis.com/maps/api/geocode/json?address='+country+'&key=AIzaSyAxVkyLyCEa2ROA2nmVrpEEObt_k74Rzjo';
+                $.ajax({
                         url: 'http://sleepy-sierra-9008.herokuapp.com/', //http://localhost:8080/
                         type: "POST",
                         data: urlSTR,
                         success: function (data) {
                           data = JSON.parse(data);
-                        	 //console.log(data);
-                        	 latitude=data.results[0].geometry.location.lat;
-                        	 longitude=data.results[0].geometry.location.lng;
-                        	 //console.log(latitude);
-                        	 var obj=[];
-                        	 obj[0]=latitude;
-                        	 obj[1]=longitude;
-                        	//console.log(obj[0]);								
+                             // console.log(data);
+                             latitude=data.results[0].geometry.location.lat;
+                             longitude=data.results[0].geometry.location.lng;
+                             //console.log(latitude);
+                             var obj=[];
+                             obj[0]=latitude;
+                             obj[1]=longitude;
+                            //console.log(obj[0]);                              
                             var link = d.unescapedUrl;
                             var title = d.title;
-                            var randomLat = (Math.floor(Math.random() * 7) + 1) * (Math.floor(Math.random()*2) === 1 ? 1 : -1);
-                            var randomLng = (Math.floor(Math.random() * 7) + 1) * (Math.floor(Math.random()*2) === 1 ? 1 : -1);
+                            var randomLat = (Math.floor(Math.random() * 14) + 1) * (Math.floor(Math.random()*2) === 1 ? 1 : -1);
+                            var randomLng = (Math.floor(Math.random() * 14) + 1) * (Math.floor(Math.random()*2) === 1 ? 1 : -1);
                             var description=d.content;
 
                             var content = d.content;
@@ -458,46 +449,46 @@ function getLocation(country , d){
 
 
 function addMarker(location,source, link, title, description) {
-	var image = 'img/BlackMarker.png';
-	console.log(location);
-	if ( location.lng < -30 ) 
-	{
-		if ( location.lat > 0 ) 
-		{
-			//North America
-			image = 'img/LightGreyMarker.png';
-		} 
-		else 
-		{
-			//South America
-			image = 'img/GreyMarker.png';
-		}
-	}
-	else if ( location.lng < 60 )
-	{
-		if ( location.lat > 37 )
-		{
-			//Europe
-			image = 'img/PaleMarker.png';
-		} 
-		else 
-		{
-			//Africa
-			image = 'img/RedMarker.png';
-		}
-	} 
-	else if ( location.lat > -10 ) 
-	{
-		//Australia
-		image = 'img/PinkMarker.png';
-	} 
-	else 
-	{
-		//Asia
-		image = 'img/MauveMarker.png';
-	}
-	
-	var marker = new google.maps.Marker({
+    var image = 'img/BlackMarker.png';
+    // console.log(location);
+    if ( location.lng < -30 ) 
+    {
+        if ( location.lat > 0 ) 
+        {
+            //North America
+            image = 'img/LightGreyMarker.png';
+        } 
+        else 
+        {
+            //South America
+            image = 'img/GreyMarker.png';
+        }
+    }
+    else if ( location.lng < 60 )
+    {
+        if ( location.lat > 37 )
+        {
+            //Europe
+            image = 'img/PaleMarker.png';
+        } 
+        else 
+        {
+            //Africa
+            image = 'img/RedMarker.png';
+        }
+    } 
+    else if ( location.lat > -10 ) 
+    {
+        //Australia
+        image = 'img/MauveMarker.png';
+    } 
+    else 
+    {
+        //Asia
+        image = 'img/PinkMarker.png';
+    }
+    
+    var marker = new google.maps.Marker({
         position: location,
         map: map,
         icon: image
