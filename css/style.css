@@ -219,3 +219,11 @@ body {
   padding-right: 0;
   padding-left: 0;
 }
+
+#feed{
+overflow-y: scroll;
+height:350px;
+/* background-color: rgba(25, 20, 20, 0.7); */
+color:white;
+font-family: Verdana, Geneva, sans-serif;
+}
