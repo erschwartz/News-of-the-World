@@ -1,51 +1,66 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <title>Simple Map</title>
-        <meta name="viewport" content="initial-scale=1.0">
-        <meta charset="utf-8">
+<head>
+    <title>Simple Map</title>
+    <meta name="viewport" content="initial-scale=1.0">
+    <meta charset="utf-8">
 
-        <!-- Latest compiled and minified CSS -->
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
-        <link rel="stylesheet" href="css/style.css">
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
-    </head>
-    <body>
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/style.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+</head>
+<body>
 
-        <div class="stat">
-            <input type="text" class="width-control" id="usr" placeholder="Search">
-           
-        </div>
-
-        <div class="row">
-
-            <div class="col-md-9">
-                <div id="map"></div>
+    <nav class="navbar navbar-custom navbar-fixed-top navwrapper cl-effect-13">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <img src = "img/WorldNes.png">
             </div>
-
-            <div class="col-md-3">
-                <div id="feed">
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
-                        Morbi rutrum, turpis....
-                    </p>
-
-                    <p>
-                        id ornare aliquam, eros nibh blandit ipsum,
-                        sit amet dictum tortor eros in mi.....
-                    </p>
-                    
-                    <p>
-                        Ut purus nunc, iaculis non tellus eu, 
-                        venenatis hendrerit justo. Ut sit amet ipsum vel sapien..
-                    </p>
-                </div>
+            <div class ="collapse navbar-collapse navbar-right navbar-main-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="#" data-hover="About" id = "aboutLink">About</a>
+                    </li>
+                </ul>
             </div>
         </div>
+    </nav>
+
+    <div class="search-bar-background">
+        <div class = "search-bar-holder">
+            <input type="text" name="fname" placeholder="Search for news by topic" class="search-bar style-2">
+            <button type="button" class="myButton search-padding">
+            <center>
+            <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+            </center>
+            </button>
+        </div>
+    </div>
 
 
-        <script type = "text/javascript" src="js/index.js"></script>
-        <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAZU-mi_Dc4h54fwkmN-8QdmnHzAaF8_Jw&callback=initMap"
-        async defer></script>
-    </body>
+<!--    <div class="stat">
+        <input type="text" class="form-control width-control" id="usr" placeholder="Search">
+
+    </div>
+
+    <div class="row no-gutter">
+
+        <div class="col-md-9">
+            <div id="map"></div>
+        </div>
+
+        <div class = "col-md-3 feed-background">
+        <h2>Test</h2>
+        </div>
+    </div>
+
+-->
+
+
+<script type = "text/javascript" src="js/index.js"></script>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAZU-mi_Dc4h54fwkmN-8QdmnHzAaF8_Jw&callback=initMap"
+async defer></script>
+</body>
 </html>
