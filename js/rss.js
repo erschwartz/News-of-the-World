@@ -246,6 +246,25 @@ var jsonArr=[
 ];
 
 
+var newsfeedArray = new Array();
+newsfeedArray["United States"] = ["Yahoo News", "ABC News", "Voice of America", "Times LIVE", "Variety", "The Globalist", "International Business Times", "CNN", "Los Angeles Times", "MyTechBits", "Tech Times", "IJ Review", "Bloomberg","Albany Times Union", "New York Times", "Newsweek", "Huffington Post", "The Inquisitr", "Wall Street Journal", "Washington Post", "The Guardian", "The Hill", "NPR", "USA TODAY", "fox6now.com", "SPIN", "Fox News", "U.S. News & World Report", "Houston Chronicle (subscription)", "CNN International"];
+newsfeedArray["Saudi Arabia"] = ["Al-Arabiya"];
+newsfeedArray["United Kingdom"] = ["Reuters UK", "Daily Mail", "Telegraph.co.uk", "Scottish Daily Record", "Mashable", "Sun News", "BBC News", "Institutional Investor", "York Daily Record/Sunday News", "Londonist", "Financial Times"];
+newsfeedArray["China"] = ["South China Morning Post (subscription)"];
+newsfeedArray["India"] = ["Economic Times", "Firstpost", "Times of India", "NDTV", "Zee News"];
+newsfeedArray["Germany"] = ["Deutsche Welle"];
+newsfeedArray["France"] = ["RFI"];
+newsfeedArray["Ukraine"] = ["Kyiv Post"];
+newsfeedArray["Australia"] = ["9news.com.au", "Sydney Morning Herald", "NEWS.com.au"];
+newsfeedArray["Auckland"] = ["Stuff.co.nz", "TVNZ", "New Zealand Herald"];
+newsfeedArray["Japan"] = ["The Japan Times"];
+newsfeedArray["Canada"] = ["CBC.ca", "CTV News"];
+newsfeedArray["Switzerland"] = ["UN News Centre"];
+newsfeedArray["United Arab Emirates"] = ["Khaleej Times", "gulfnews.com", "ArabianBusiness.com"];
+newsfeedArray["South Africa"] = ["News24", "Entrepreneur", "South African Broadcasting Corporation"];
+newsfeedArray["Israel"] = ["Middle East Monitor"];
+newsfeedArray["Jordan"] = ["Al-Bawaba"];
+newsfeedArray["Ireland"] = ["BreakingNews.ie"];
 
 var urlSTR;
 var temp;
@@ -266,7 +285,7 @@ function initMap() {
 
 
     $(document).ready( function() {
-        $("#feed").append("<div class='intro-header'><h2>Your default search keyword is set to <b>world</b>. Give it a try!</h2></div>");
+        $("#feedItems").append("<div class='intro-header'><h2>Your default search keyword is set to <b>world</b>. Give it a try!</h2></div>");
         var urlParam="world";
         urlSTR = 'https://ajax.googleapis.com/ajax/services/search/news?v=1.0&q='+urlParam+'&rsz=8';
         $.ajax({
@@ -277,7 +296,7 @@ function initMap() {
                             data = JSON.stringify(eval('(' + data + ')'));
                             data = JSON.parse(data);
                             if (data.responseData === null) {
-                                $("#feed").append("<center><h1 style='color: #999999;'>Error! Please try your search again!</h1>");
+                                $("#feedItems").append("<center><h1 style='color: #999999;'>Error! Please try your search again!</h1>");
                             } else {
                                 moreResults = data.responseData.cursor.moreResultsUrl;
                                 data.responseData.results.forEach(function (d) {
@@ -287,10 +306,10 @@ function initMap() {
                                     var title = d.title;
                                     var content = d.content;
                                     var publisher = d.publisher;
-                                    $("#feed").append("<div class = 'feed-cell'><a href='"+link+"' target='_blank'><h1>"+title+"</h1><p>"+content+"</p><h3>"+publisher+"   <button type='button' class='myButton' id='link-go' style='color: rgb(193,39,45) !important'><center><span class='glyphicon glyphicon-chevron-right' aria-hidden='true'></span></center></button></h3></a></div>");
+                                    $("#feedItems").append("<div class = 'feed-cell'><a href='"+link+"' target='_blank'><h1>"+title+"</h1><p>"+content+"</p><h3>"+publisher+"   <button type='button' class='myButton' id='link-go' style='color: rgb(193,39,45) !important'><center><span class='glyphicon glyphicon-chevron-right' aria-hidden='true'></span></center></button></h3></a></div>");
                                     addMarker( {lat: 43.0759678 + randomLat, lng: -107.2902839 + randomLng}, '', link, title, d.content);
                                 });
-$("#feed").append("<center><a href='"+moreResults+"' target='_blank'><div class = 'more-button'><button type = 'button' id = 'my-more-button'><h4>Show me more!</h4></button></div></a></center>");
+$("#feedItems").append("<center><a href='"+moreResults+"' target='_blank'><div class = 'more-button'><button type = 'button' id = 'my-more-button'><h4>Show me more!</h4></button></div></a></center>");
 }
 
 },
