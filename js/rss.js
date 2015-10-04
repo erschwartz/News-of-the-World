@@ -246,37 +246,6 @@ var jsonArr=[
 ];
 
 
-<<<<<<< HEAD
-		var urlSTR;
-
-	    var urlSTR;
-
-            var temp;
-            var map;
-            var markers = [];
-            var markerCount=0;
-            var infoGlobal=null;
-            var windowFlag=0;
-            function initMap() {
-                var uluru = {lat: 25.2916097, lng: -107.2902839};
-                map = new google.maps.Map(document.getElementById('map'), {
-                    zoom: 4,
- 					center: uluru,
-                    styles: [{"featureType":"all","elementType":"all","stylers":[{"saturation":-100},{"gamma":0.5}]}]
-                });
-
-					// click on search button to search.
-
-					$(".myButton").on('click', function () {
-
-					
-					deleteMarkers();
-
-
-                
-                });
-
-=======
 
 var urlSTR;
 var temp;
@@ -296,35 +265,22 @@ function initMap() {
 
 
                     // click on search button to search.
->>>>>>> e0a110be35c9be359636d91940fee7bfeb7fa273
 
                     $(".myButton").on('click', function () {
 
-<<<<<<< HEAD
-		$(".myButton").on('click', function () {
-			
-			
-		   deleteMarkers();	
-
-                    var str=$("#search").val();
-                    var arr=str.split(" ");
-                    var urlParam="";
-                    for(i=0; i<arr.length;i++){
-=======
 
                      deleteMarkers(); 
                      var str=$("#search").val();
                      var arr=str.split(" ");
                      var urlParam="";
                      for(i=0; i<arr.length;i++){
->>>>>>> e0a110be35c9be359636d91940fee7bfeb7fa273
                         if(i>1){
                             urlParam+='%20';
                         }
                         urlParam+=arr[i];
                     }
                     urlSTR = 'https://ajax.googleapis.com/ajax/services/search/news?v=1.0&q='+urlParam+'&rsz=8';
-                    $.ajax({
+                   var request =  $.ajax({
                         url: 'http://sleepy-sierra-9008.herokuapp.com/', //http://localhost:8080/
                         type: "POST",
                         data: urlSTR,
@@ -337,14 +293,15 @@ function initMap() {
                             //console.log(JSON.stringify(eval('(' + data + ')')));
                             data = JSON.stringify(eval('(' + data + ')'));
                             data = JSON.parse(data);
-                            $("#feed").empty();
+                            $("#feedItems").empty();
                             
                             
                             if (data.responseData === null) {
-                                $("#feed").append("<center><h1 style='color: #999999;'>Error! Please try your search again!</h1>");
+                                $("#feedItems").append("<center><h1 style='color: #999999;'>Error! Please try your search again!</h1>");
                             } else {
                                 moreResults = data.responseData.cursor.moreResultsUrl;
-                                data.responseData.results.forEach(function (d) {
+
+                                var res = data.responseData.results.forEach(function (d) {
                                     
                             	var country="United States";
                             	for(i=0; i<Object.keys(jsonArr).length	; i++){
@@ -355,60 +312,29 @@ function initMap() {
                             		}
                             	}
 
-<<<<<<< HEAD
-                            data.responseData.results.forEach(function (d) {
 
-
-                            	//https://maps.googleapis.com/maps/api/geocode/json?address=China&key=AIzaSyDa9qiut_2abe13UhwEIlWJSwqR9nCPTwY
-
-
-                            	// search content for one instance of country
-                            	// get country
-                            	// do ajax call
-                            	//get longitude and latitude
-
-                            	var country="United States";
-                            	for(i=0; i<Object.keys(jsonArr).length	; i++){
-                            		if((d.content+d.title ).indexOf(jsonArr[i].name)>-1){
-                            			console.log(jsonArr[i].name);
-                            			country=jsonArr[i].name;
-                            			break;
-                            		}
-                            	}
-
-
-                            	var obj=getLocation(country,d)
-          	
-                            	
-
-                            });
-
-                        },
-                        failure: function (err) {
-                            console.log(err);
-                        }
-                    });
-                });
-                
-            
-=======
-
-                            	var obj=getLocation(country,d)
+                            	var obj=getLocation(country,d);
                                     
                                     
                                 });
-$("#feed").append("<center><a href='"+moreResults+"' target='_blank'><div class = 'more-button'><button type = 'button' id = 'my-more-button'><h4>Show me more!</h4></button></div></a></center>");
-}
+
+                                $("#readmore").append("<center><a href='"+moreResults+"' target='_blank'><div class = 'more-button'><button type = 'button' id = 'my-more-button'><h4>Show me more!</h4></button></div></a></center>");
+                                
+
+                               
+                            }
 
 },
 failure: function (err) {
-    $("#feed").append("<center><h1 style='color: #999999;'>Error! Please try your search again!</h1>");
+    $("#feedItems").append("<center><h1 style='color: #999999;'>Error! Please try your search again!</h1>");
 }
 });
+
+
+
 });
 
 
->>>>>>> e0a110be35c9be359636d91940fee7bfeb7fa273
             function getLocation(country , d){
             	//https://maps.googleapis.com/maps/api/geocode/json?address=China&key=AIzaSyDa9qiut_2abe13UhwEIlWJSwqR9nCPTwY
             	var longitude;
@@ -437,7 +363,7 @@ failure: function (err) {
 
                                 var content = d.content;
                                 var publisher = d.publisher;
-                                $("#feed").append("<div class = 'feed-cell'><a href='"+link+"' target='_blank'><h1>"+title+"</h1><p>"+content+"</p><h3>"+publisher+"   <button type='button' class='myButton' id='link-go' style='color: rgb(193,39,45) !important'><center><span class='glyphicon glyphicon-chevron-right' aria-hidden='true'></span></center></button></h3></a></div>");
+                                $("#feedItems").append("<div class = 'feed-cell'><a href='"+link+"' target='_blank'><h1>"+title+"</h1><p>"+content+"</p><h3>"+publisher+"   <button type='button' class='myButton' id='link-go' style='color: rgb(193,39,45) !important'><center><span class='glyphicon glyphicon-chevron-right' aria-hidden='true'></span></center></button></h3></a></div>");
                             	addMarker( {lat: latitude + randomLat, lng: longitude + randomLng}, '', link, title, d.content);
                   
 
@@ -448,122 +374,10 @@ failure: function (err) {
                             console.log(err);
                         }
                     });
-<<<<<<< HEAD
+
+
 
             	
-
-            }
-
-
-            function addMarker(location,source, link, title, description) {
-  			var marker = new google.maps.Marker({
-    				position: location,
-  	  				map: map
-  					});
-  					markers.push(marker);				
-  					var infowindow = new google.maps.InfoWindow({
-                                content: "<a href='" + link + "'>" + title + "</a>"
-                            });
-  					
-                    
-                    marker.addListener('click', function () {
-                    	if(infoGlobal=== null){
-                    		infoGlobal=infowindow;
-                    	}
-                    	else{
-                    		infoGlobal.close();
-                    		infoGlobal=infowindow;
-                    	}
-                    		    
-                                infowindow.open(map, marker);
-                            });
-
-		}
-		
-			// Sets the map on all markers in the array.
-			function setMapOnAll(map) {
-  			for (var i = 0; i < markers.length; i++) {
-    			markers[i].setMap(map);
-  			}
-			}
-
-				// Removes the markers from the map, but keeps them in the array.
-				function clearMarkers() {
-  					setMapOnAll(null);
-				}
-
-				// Deletes all markers in the array by removing references to them.
-				function deleteMarkers() {
-  					clearMarkers();
-  					markers = [];
-				}
-
-				// Shows any markers currently in the array.
-				function showMarkers() {
-  					setMapOnAll(map);
-				}
-
-				// Sets the map on all markers in the array.
-				function setMapOnAll(map) {
-  					for (var i = 0; i < markers.length; i++) {
-    					markers[i].setMap(map);
-  						}
-				}
-
-
-
-				function addMarker(location,source, link, title, description) {
-  					var marker = new google.maps.Marker({
-    				position: location,
-  	  				map: map
-  					});
-  					markers.push(marker);				
-  					var infowindow = new google.maps.InfoWindow({
-                                content: "<a href='" + link + "'>" + title + "</a>"
-                            });
-  					
-                    
-                    marker.addListener('click', function () {
-                    	if(infoGlobal=== null){
-                    		infoGlobal=infowindow;
-                    	}
-                    	else{
-                    		infoGlobal.close();
-                    		infoGlobal=infowindow;
-                    	}
-                    		    
-                                infowindow.open(map, marker);
-                            });
-
-                  
-
-
-				}
-
-				
-
-				// Removes the markers from the map, but keeps them in the array.
-				function clearMarkers() {
-  					setMapOnAll(null);
-				}
-
-				// Deletes all markers in the array by removing references to them.
-				function deleteMarkers() {
-  					clearMarkers();
-  					markers = [];
-				}
-
-				// Shows any markers currently in the array.
-				function showMarkers() {
-  					setMapOnAll(map);
-				}
-
-
-
-=======
-
-            	
->>>>>>> e0a110be35c9be359636d91940fee7bfeb7fa273
 
             }
 
