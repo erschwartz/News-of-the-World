@@ -255,6 +255,7 @@ var markerCount=0;
 var infoGlobal=null;
 var windowFlag=0;
 var moreResults;
+var flag=1;
 function initMap() {
     var uluru = {lat: 25.2916097, lng: -107.2902839};
     map = new google.maps.Map(document.getElementById('map'), {
@@ -318,7 +319,12 @@ function initMap() {
                                     
                                 });
 
-                                $("#readmore").append("<center><a href='"+moreResults+"' target='_blank'><div class = 'more-button'><button type = 'button' id = 'my-more-button'><h4>Show me more!</h4></button></div></a></center>");
+
+                                if(flag){
+                                    $("#readmore").append("<center><a href='"+moreResults+"' target='_blank'><div class = 'more-button'><button type = 'button' id = 'my-more-button'><h4>Show me more!</h4></button></div></a></center>");
+                                flag=0;
+                                }
+                                
                                 
 
                                
