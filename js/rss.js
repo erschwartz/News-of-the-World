@@ -454,9 +454,49 @@ function getLocation(country , d){
 
 
 function addMarker(location,source, link, title, description) {
-    var marker = new google.maps.Marker({
+	var image = 'img/BlackMarker.png';
+	console.log(location);
+	if ( location.lng < -30 ) 
+	{
+		if ( location.lat > 0 ) 
+		{
+			//North America
+			image = 'img/LightGreyMarker.png';
+		} 
+		else 
+		{
+			//South America
+			image = 'img/GreyMarker.png';
+		}
+	}
+	else if ( location.lng < 60 )
+	{
+		if ( location.lat > 37 )
+		{
+			//Europe
+			image = 'img/PaleMarker.png';
+		} 
+		else 
+		{
+			//Africa
+			image = 'img/RedMarker.png';
+		}
+	} 
+	else if ( location.lat > -10 ) 
+	{
+		//Australia
+		image = 'img/PinkMarker.png';
+	} 
+	else 
+	{
+		//Asia
+		image = 'img/MauveMarker.png';
+	}
+	
+	var marker = new google.maps.Marker({
         position: location,
-        map: map
+        map: map,
+		icon: image
     });
     markers.push(marker);               
     var infowindow = new google.maps.InfoWindow({
@@ -475,7 +515,9 @@ function addMarker(location,source, link, title, description) {
 
         infowindow.open(map, marker);
     });
-
+	
+	
+	
 }
 
             // Sets the map on all markers in the array.
