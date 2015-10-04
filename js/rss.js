@@ -69,38 +69,31 @@
 
             (function ($) {
     $(document).ready(function() {
-        //6.309630, 22.637847
-        $("#africa").click( function() {
-            map.setCenter({lat: 6.309630, lng: 22.637847});
+        $("#africa")		.mouseenter( function() {
+            map.panTo({lat: 6.309630, lng: 22.637847});
             map.setZoom(3);
         });
-//37.975641, 75.551522
-        $("#asia").click( function() {
-            map.setCenter({lat: 37.975641, lng: 75.551522});
+        $("#asia")			.mouseenter( function() {
+            map.panTo({lat: 37.975641, lng: 75.551522});
             map.setZoom(3);
         });
-//-25.981453, 134.701913
-        $("#australia").click( function() {
-            map.setCenter({lat: -25.981453, lng: 134.701913});
+        $("#australia")		.mouseenter( function() {
+            map.panTo({lat: -25.981453, lng: 134.701913});
             map.setZoom(3);
         });
-//48.557560, 16.489022
-        $("#europe").click( function() {
-            map.setCenter({lat: 48.557560, lng: 16.489022});
+        $("#europe")		.mouseenter( function() {
+            map.panTo({lat: 48.557560, lng: 16.489022});
             map.setZoom(3);
         });
-//39.209689, -98.696382
-        $("#northAmerica").click( function() {
-            map.setCenter({lat: 39.209689, lng: -98.696382});
+        $("#northAmerica")	.mouseenter( function() {
+            map.panTo({lat: 39.209689, lng: -98.696382});
             map.setZoom(3);
         });
-//-13.350834, -58.913030
-        $("#southAmerica").click( function() {
-            map.setCenter({lat: -13.350834, lng: -58.913030});
+        $("#southAmerica")	.mouseenter( function() {
+            map.panTo({lat: -13.350834, lng: -58.913030});
             map.setZoom(3);
         });
-        //41.329716, 0.751057
-        $("#world").click( function() {
+        $("#world")			.mouseenter( function() {
             map.setCenter({lat: 41.329716, lng: 0.751057});
             map.setZoom(1);
         });
