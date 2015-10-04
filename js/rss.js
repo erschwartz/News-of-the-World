@@ -65,7 +65,7 @@
                                 infowindow.open(map, marker);
                             });
 
-                            $("#feed").append("<div> <img src = 'img/aljazeera.png' align='left' height='40' width='80'/> </div>");
+                            $("#feed").append("<div> <img src = 'img/aljazeera.png' align='left' height='100%' width='80'/> </div>");
                             $("#feed").append("<div> <br><br> </div>");
                             $("#feed").append("<a href='" + link + "'>" + title + "</a></br>");
                             $("#feed").append("<div> <br><br> </div>");
@@ -110,7 +110,7 @@
                                 infowindow.open(map, marker);
                             });
 
-                            $("#feed").append("<div> <img src = 'img/bbc2.jpg' align='left' height='40' width='57'/> </div>");
+                            $("#feed").append("<div> <img src = 'img/bbc2.jpg' align='left' height='100%' width='57'/> </div>");
                             $("#feed").append("<div> <br><br> </div>");
                             $("#feed").append("<a href='" + link + "'>" + title + "</a></br>");
                             $("#feed").append("<div> <br><br> </div>");
@@ -156,7 +156,7 @@
                                 infowindow.open(map, marker);
                             });
 
-                            $("#feed").append("<div> <img src = 'img/newyorktimes.png' align='left' height='30' width='140'/> </div>");
+                            $("#feed").append("<div> <img src = 'img/newyorktimes.png' align='left' height='100%' width='140'/> </div>");
                             $("#feed").append("<div> <br><br> </div>");
                             $("#feed").append("<a href='" + link + "'>" + title + "</a></br>");
                             $("#feed").append("<div> <br><br> </div>");
