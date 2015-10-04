@@ -15,16 +15,51 @@ function initMap() {
     });
 
 
+    $(document).ready( function() {
+        $("#feed").append("<div class='intro-header'><h2>Your default search keyword is set to <b>world</b>. Give it a try!</h2></div>");
+        var urlParam="world";
+        urlSTR = 'https://ajax.googleapis.com/ajax/services/search/news?v=1.0&q='+urlParam+'&rsz=8';
+        $.ajax({
+                        url: 'http://sleepy-sierra-9008.herokuapp.com/', 
+                        type: "POST",
+                        data: urlSTR,
+                        success: function (data) {
+                            data = JSON.stringify(eval('(' + data + ')'));
+                            data = JSON.parse(data);
+                            if (data.responseData === null) {
+                                $("#feed").append("<center><h1 style='color: #999999;'>Error! Please try your search again!</h1>");
+                            } else {
+                                moreResults = data.responseData.cursor.moreResultsUrl;
+                                data.responseData.results.forEach(function (d) {
+                                    var randomLat = (Math.floor(Math.random() * 7) + 1) * (Math.floor(Math.random()*2) === 1 ? 1 : -1);
+                                    var randomLng = (Math.floor(Math.random() * 7) + 1) * (Math.floor(Math.random()*2) === 1 ? 1 : -1);
+                                    var link = d.unescapedUrl;
+                                    var title = d.title;
+                                    var content = d.content;
+                                    var publisher = d.publisher;
+                                    $("#feed").append("<div class = 'feed-cell'><a href='"+link+"' target='_blank'><h1>"+title+"</h1><p>"+content+"</p><h3>"+publisher+"   <button type='button' class='myButton' id='link-go' style='color: rgb(193,39,45) !important'><center><span class='glyphicon glyphicon-chevron-right' aria-hidden='true'></span></center></button></h3></a></div>");
+                                    addMarker( {lat: 43.0759678 + randomLat, lng: -107.2902839 + randomLng}, '', link, title, d.content);
+                                });
+$("#feed").append("<center><a href='"+moreResults+"' target='_blank'><div class = 'more-button'><button type = 'button' id = 'my-more-button'><h4>Show me more!</h4></button></div></a></center>");
+}
+
+},
+failure: function (err) {
+    $("#feed").append("<center><h1 style='color: #999999;'>Error! Please try your search again!</h1>");
+}
+});
+});
+
                     // click on search button to search.
 
                     $(".myButton").on('click', function () {
 
 
-                     deleteMarkers(); 
-                     var str=$("#search").val();
-                     var arr=str.split(" ");
-                     var urlParam="";
-                     for(i=0; i<arr.length;i++){
+                       deleteMarkers(); 
+                       var str=$("#search").val();
+                       var arr=str.split(" ");
+                       var urlParam="";
+                       for(i=0; i<arr.length;i++){
                         if(i>1){
                             urlParam+='%20';
                         }

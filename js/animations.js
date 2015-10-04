@@ -1,7 +1,7 @@
 (function ($) {
 	$(document).ready(function() {
 
-		$("#feed").append("<center><h1 style='color: #999999;'>You have not searched for any news yet!<br>Here are some top stories:</h1></center>");
+		// $("#feed").append("<center><h1 style='color: #999999;'>You have not searched for any news yet!<br>Here are some top stories:</h1></center>");
 		//6.309630, 22.637847
 		$(".feed-cell").hover(function() {
 			$(this).toggleClass("animated");

@@ -262,6 +262,22 @@ body {
     width: 50%;
 }
 
+h2 {
+    font-size: 18px;
+    font-family: Montserrat;
+    color: #661821;
+}
+
+.intro-header {
+    background-color: #fff;
+    margin-bottom: 0px;
+    margin-right: 20px;
+    padding-right: 10px;
+    padding-left: 10px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+
 .portfolio-modal .modal-content h2 {
     margin: 0;
     font-size: 3em;
@@ -297,9 +313,8 @@ h3 {
     color: rgb(193,39,45) !important;
 }
 
-/*.no-border {*/
-    /*border: solid 0px #c9c9c9;*/
-    /*}*/
+button:focus {outline:0;}
+
 
     #feed {
         overflow-y: scroll;
@@ -318,4 +333,8 @@ h3 {
     .link{
       text-align: right;
       font-size: 2;
+  }
+
+  #img-centre {
+        margin-left: -75px;
   }
