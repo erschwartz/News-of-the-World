@@ -246,6 +246,7 @@ var jsonArr=[
 ];
 
 
+<<<<<<< HEAD
 		var urlSTR;
 
 	    var urlSTR;
@@ -275,9 +276,31 @@ var jsonArr=[
                 
                 });
 
+=======
 
-					// click on search button to search.
+var urlSTR;
+var temp;
+var map;
+var markers = [];
+var markerCount=0;
+var infoGlobal=null;
+var windowFlag=0;
+var moreResults;
+function initMap() {
+    var uluru = {lat: 25.2916097, lng: -107.2902839};
+    map = new google.maps.Map(document.getElementById('map'), {
+        zoom: 2,
+        center: uluru,
+        styles: [{"featureType":"all","elementType":"all","stylers":[{"saturation":-100},{"gamma":0.5}]}]
+    });
 
+
+                    // click on search button to search.
+>>>>>>> e0a110be35c9be359636d91940fee7bfeb7fa273
+
+                    $(".myButton").on('click', function () {
+
+<<<<<<< HEAD
 		$(".myButton").on('click', function () {
 			
 			
@@ -287,6 +310,14 @@ var jsonArr=[
                     var arr=str.split(" ");
                     var urlParam="";
                     for(i=0; i<arr.length;i++){
+=======
+
+                     deleteMarkers(); 
+                     var str=$("#search").val();
+                     var arr=str.split(" ");
+                     var urlParam="";
+                     for(i=0; i<arr.length;i++){
+>>>>>>> e0a110be35c9be359636d91940fee7bfeb7fa273
                         if(i>1){
                             urlParam+='%20';
                         }
@@ -307,7 +338,24 @@ var jsonArr=[
                             data = JSON.stringify(eval('(' + data + ')'));
                             data = JSON.parse(data);
                             $("#feed").empty();
+                            
+                            
+                            if (data.responseData === null) {
+                                $("#feed").append("<center><h1 style='color: #999999;'>Error! Please try your search again!</h1>");
+                            } else {
+                                moreResults = data.responseData.cursor.moreResultsUrl;
+                                data.responseData.results.forEach(function (d) {
+                                    
+                            	var country="United States";
+                            	for(i=0; i<Object.keys(jsonArr).length	; i++){
+                            		if((d.content+d.title ).indexOf(jsonArr[i].name)>-1){
+                            			console.log(jsonArr[i].name);
+                            			country=jsonArr[i].name;
+                            			break;
+                            		}
+                            	}
 
+<<<<<<< HEAD
                             data.responseData.results.forEach(function (d) {
 
 
@@ -343,6 +391,24 @@ var jsonArr=[
                 });
                 
             
+=======
+
+                            	var obj=getLocation(country,d)
+                                    
+                                    
+                                });
+$("#feed").append("<center><a href='"+moreResults+"' target='_blank'><div class = 'more-button'><button type = 'button' id = 'my-more-button'><h4>Show me more!</h4></button></div></a></center>");
+}
+
+},
+failure: function (err) {
+    $("#feed").append("<center><h1 style='color: #999999;'>Error! Please try your search again!</h1>");
+}
+});
+});
+
+
+>>>>>>> e0a110be35c9be359636d91940fee7bfeb7fa273
             function getLocation(country , d){
             	//https://maps.googleapis.com/maps/api/geocode/json?address=China&key=AIzaSyDa9qiut_2abe13UhwEIlWJSwqR9nCPTwY
             	var longitude;
@@ -382,6 +448,7 @@ var jsonArr=[
                             console.log(err);
                         }
                     });
+<<<<<<< HEAD
 
             	
 
@@ -493,6 +560,63 @@ var jsonArr=[
 
 
 
+=======
+
+            	
+>>>>>>> e0a110be35c9be359636d91940fee7bfeb7fa273
+
+            }
+
+
+
+function addMarker(location,source, link, title, description) {
+    var marker = new google.maps.Marker({
+        position: location,
+        map: map
+    });
+    markers.push(marker);               
+    var infowindow = new google.maps.InfoWindow({
+        content: "<a href='" + link + "'>" + title + "</a>"
+    });
+
+
+    marker.addListener('click', function () {
+        if(infoGlobal=== null){
+            infoGlobal=infowindow;
+        }
+        else{
+            infoGlobal.close();
+            infoGlobal=infowindow;
+        }
+
+        infowindow.open(map, marker);
+    });
+
+}
+
+            // Sets the map on all markers in the array.
+            function setMapOnAll(map) {
+                for (var i = 0; i < markers.length; i++) {
+                    markers[i].setMap(map);
+                }
+            }
+
+                // Removes the markers from the map, but keeps them in the array.
+                function clearMarkers() {
+                    setMapOnAll(null);
+                }
+
+                // Deletes all markers in the array by removing references to them.
+                function deleteMarkers() {
+                    clearMarkers();
+                    markers = [];
+                }
+
+                // Shows any markers currently in the array.
+                function showMarkers() {
+                    setMapOnAll(map);
+                }
+
 
             } // -----------------------------------------------END OF INIT--------------------------------------
 
@@ -500,40 +624,35 @@ var jsonArr=[
 
 
             (function ($) {
-    $(document).ready(function() {
-        $("#africa")		.mouseenter( function() {
-            map.panTo({lat: 6.309630, lng: 22.637847});
-            map.setZoom(3);
-        });
-        $("#asia")			.mouseenter( function() {
-            map.panTo({lat: 37.975641, lng: 75.551522});
-            map.setZoom(3);
-        });
-        $("#australia")		.mouseenter( function() {
-            map.panTo({lat: -25.981453, lng: 134.701913});
-            map.setZoom(3);
-        });
-        $("#europe")		.mouseenter( function() {
-            map.panTo({lat: 48.557560, lng: 16.489022});
-            map.setZoom(3);
-        });
-        $("#northAmerica")	.mouseenter( function() {
-            map.panTo({lat: 39.209689, lng: -98.696382});
-            map.setZoom(3);
-        });
-        $("#southAmerica")	.mouseenter( function() {
-            map.panTo({lat: -13.350834, lng: -58.913030});
-            map.setZoom(3);
-        });
-        $("#world")			.mouseenter( function() {
-            map.setCenter({lat: 41.329716, lng: 0.751057});
-            map.setZoom(1);
-        });
+                $(document).ready(function() {
+                    $("#africa")        .mouseenter( function() {
+                        map.panTo({lat: 6.309630, lng: 22.637847});
+                        map.setZoom(3);
+                    });
+                    $("#asia")          .mouseenter( function() {
+                        map.panTo({lat: 37.975641, lng: 75.551522});
+                        map.setZoom(3);
+                    });
+                    $("#australia")     .mouseenter( function() {
+                        map.panTo({lat: -25.981453, lng: 134.701913});
+                        map.setZoom(3);
+                    });
+                    $("#europe")        .mouseenter( function() {
+                        map.panTo({lat: 48.557560, lng: 16.489022});
+                        map.setZoom(3);
+                    });
+                    $("#northAmerica")  .mouseenter( function() {
+                        map.panTo({lat: 39.209689, lng: -98.696382});
+                        map.setZoom(3);
+                    });
+                    $("#southAmerica")  .mouseenter( function() {
+                        map.panTo({lat: -13.350834, lng: -58.913030});
+                        map.setZoom(3);
+                    });
+                    $("#world")         .mouseenter( function() {
+                        map.setCenter({lat: 41.329716, lng: 0.751057});
+                        map.setZoom(2);
+                    });
 
-    });
+                });
 }(jQuery));
-
-
-
-
-

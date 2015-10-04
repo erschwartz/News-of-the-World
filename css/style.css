@@ -27,9 +27,31 @@ html, body {
     padding-top: 5px;
 }
 
+#my-more-button {
+    border: 0px;
+    background-color: rgba(0,0,0,0.01);
+}
+
 h1 {
     font-family: Montserrat;
     font-size: 14px;
+}
+
+h4 {
+    padding-bottom: 10px;
+    color: #ffffff;
+    font-family: Montserrat;
+}
+
+h4:hover {
+    color: #661821;
+}
+
+.more-button {
+    background-color: rgb(204,204,204);
+    margin-top: 10px;
+    margin-bottom: 0px;
+    margin-right: 20px;
 }
 
 h3 {
