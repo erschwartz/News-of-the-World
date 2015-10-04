@@ -277,7 +277,7 @@ var windowFlag=0;
 var moreResults;
 var flag=1;
 var callValue = 0;
-var urlSTRarray = ['us', 'au', 'in','id','kr','en_bw','it','cs_cz','fr','en_ke','fr_ca','uk_ua','no_no','de_at','en_ng','en_ug','ru_ua','en_na','en_za','en_ch','es_cl','es_co','es_ve','nl_nl','sv_se','en_tz','th','en_zw','uk'];
+var urlSTRarray = ['us', 'au', 'in','id','kr','en_bw','it','cs_cz','fr','en_ke','en_il','in','cn','fr_ca','en_my','uk_ua','no_no','de_at','en_ng','en_ug','ru_ua','en_na','en_za','en_ch','es_cl','es_co','es_ve','nl_nl','sv_se','en_tz','th','en_zw','uk'];
 function initMap() {
     var uluru = {lat: 25.2916097, lng: -107.2902839};
     map = new google.maps.Map(document.getElementById('map'), {
