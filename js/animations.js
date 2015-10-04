@@ -1,6 +1,13 @@
 (function ($) {
 	$(document).ready(function() {
+
+		$("#feed").append("<center><h1 style='color: #999999;'>You have not searched for any news yet!</h1></center>");
 		//6.309630, 22.637847
+		$(".feed-cell").hover(function() {
+			$(this).toggleClass("animated");
+			$(this).toggleClass("infinite");
+			$(this).toggleClass("pulse");
+		});
 		$("#africa").hover( function() {
 			$("#africa").toggleClass("animated");
 			$("#africa").toggleClass("infinite");
