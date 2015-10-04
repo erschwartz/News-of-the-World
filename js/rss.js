@@ -1,5 +1,6 @@
 
             var temp;
+            
             var map;
             function initMap() {
                 var uluru = {lat: 25.2916097, lng: -107.2902839};
@@ -7,76 +8,6 @@
                     zoom: 4,
                     center: uluru,
                     styles: [{"featureType":"all","elementType":"all","stylers":[{"saturation":-100},{"gamma":0.5}]}]
-                });
-
-
-              
-
-                /*
-                 * New York Times
-                 * c3052c2ffab4824b8940766896f7b472:5:73125278
-                 * http://api.nytimes.com/svc/news/v3/content/all/all?api-key=b186b297e3b89da2dc0d95f85fc7bf51:1:73125278
-                 * 
-                 * 
-                 * 
-                 * http://api.nytimes.com/svc/semantic/v2/geocodes/query.json?country_code=US&api-key=4c9c87d9ce15a03be757c3353d7b029b:3:73125278
-                 * 
-                 */
-
-                var urlSTR = 'http://america.aljazeera.com/content/ajam/articles.rss'  //'http://api.nytimes.com/svc/news/v3/content.xml/all/all?api-key=b186b297e3b89da2dc0d95f85fc7bf51:1:73125278';
-
-                //'http://api.nytimes.com/svc/semantic/v2/geocodes/query.json?country_code=US&api-key=4c9c87d9ce15a03be757c3353d7b029b:3:73125278';
-
-                $.ajax({
-                    url: 'http://sleepy-sierra-9008.herokuapp.com/', //http://localhost:8080/
-                    type: "POST",
-                    data: urlSTR,
-                    //http://rss.nytimes.com/services/xml/rss/nyt/World.xml
-                    //http://feeds.bbci.co.uk/news/rss.xml?edition=int
-                    //http://america.aljazeera.com/content/ajam/articles.rss
-                    //http://feeds.reuters.com/Reuters/worldNews
-                    success: function (data) {
-                        //console.log(data);
-                        /*
-                         * data.results
-                         * aljazeera
-                         // doha Qatar
-                         // Latitutde: 25.2916097
-                         // long : 51.5304368
-                         */
-
-                        $(data).find("item").each(function () {
-                            var title = $(this).find("title").text();
-                            var link = $(this).find("guid").text();
-                            var description = $(this).find("description").text();
-                            var randomLat = Math.floor(Math.random() * 6) + 1;
-                            var randomLng = Math.floor(Math.random() * 6) + 1;
-                            var marker = new google.maps.Marker({
-                                position: {lat: 25.2916097 + randomLat, lng: 51.5304368 + randomLng},
-                                map: map,
-                                title: 'Al Jazeera'
-                                        //icon: iconBase + 'schools_maps.png' 
-
-                            });
-
-                            var infowindow = new google.maps.InfoWindow({
-                                content: "<a href='" + link + "'>" + title + "</a>"
-                            });
-                            marker.addListener('click', function () {
-                                infowindow.open(map, marker);
-                            });
-
-                            $("#feed").append("<div> <img src = 'img/aljazeera.png' align='left' height='100%' width='80'/> </div>");
-                            $("#feed").append("<div> <br><br> </div>");
-                            $("#feed").append("<a href='" + link + "'>" + title + "</a></br>");
-                            $("#feed").append("<div> <br><br> </div>");
-
-                        });
-
-                    },
-                    failure: function (err) {
-                        console.log(err);
-                    }
                 });
 
 
@@ -107,6 +38,7 @@
                             data = JSON.stringify(eval('(' + data + ')'));
                             data = JSON.parse(data);
                             $("#feed").empty();
+
                             data.responseData.results.forEach(function (d) {
                                 console.log(d);
                                 //content
@@ -118,7 +50,7 @@
                                 var title = d.title;
                                 var content = d.content;
                                 var publisher = d.publisher;
-                                $("#feed").append("<a href='"+link+"'><h1>"+title+"</h1><p>"+content+"</p><h3>"+publisher+"</h3></a>");
+                                $("#feed").append("<div class = 'feed-cell'><a href='"+link+"' target='_blank'><h1>"+title+"</h1><p>"+content+"</p><h3>"+publisher+"   <button type='button' class='myButton' id='link-go' style='color: rgb(193,39,45) !important'><center><span class='glyphicon glyphicon-chevron-right' aria-hidden='true'></span></center></button></h3></a></div>");
                             });
 
                         },

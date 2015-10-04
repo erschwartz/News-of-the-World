@@ -1,5 +1,5 @@
 
- @import url('http://fonts.googleapis.com/css?family=Lato:100,300,400,700,900,100italic,300italic,400italic,700italic,900italic|Montserrat:700|Merriweather:400italic');
+@import url('http://fonts.googleapis.com/css?family=Lato:100,300,400,700,900,100italic,300italic,400italic,700italic,900italic|Montserrat:700|Merriweather:400italic');
 
 
 html, body {
@@ -15,6 +15,34 @@ html, body {
 .feed-background {
     background-color: #666666;
     height: 80vh;
+}
+
+.feed-cell {
+    margin-top: 10px;
+    margin-bottom: 0px;
+    margin-right: 20px;
+    background-color: rgb(204,204,204);
+    padding-right: 10px;
+    padding-left: 10px;
+    padding-top: 5px;
+}
+
+h1 {
+    font-family: Montserrat;
+    font-size: 14px;
+}
+
+h3 {
+    font-size: 20px;
+    margin-bottom: 5px;
+    color: rgb(193,34,45);
+    text-align: right;
+}
+
+p {
+    font-size: 10px;
+    font-family: "HelveticaNeue-Light", "Helvetica", sans-serif;
+    color: black;
 }
 
 .width-control{
@@ -42,10 +70,10 @@ html, body {
     height: 50px;
     margin-top: 110px;
     position: fixed;
-  top: 0;
-  left: 0;
-  z-index: 999;
-  width: 100%;
+    top: 0;
+    left: 0;
+    z-index: 999;
+    width: 100%;
 }
 
 .search-padding {
@@ -71,10 +99,10 @@ input[type="text"] {
   box-shadow: none;
   border-radius: none;
   -moz-border-radius:10px;
-    -webkit-border-radius:10px;
-    border-radius:10px;
-    text-indent: 20px; 
-    font-family: Montserrat;
+  -webkit-border-radius:10px;
+  border-radius:10px;
+  text-indent: 20px; 
+  font-family: Montserrat;
 }
 
 input[type="text"]:focus {
@@ -107,9 +135,6 @@ input[type="text"]:focus {
 .myButton {
     margin-top: -8px;
     padding-left: 10px;
-    -moz-box-shadow: 0px 1px 0px 0px #1c1b18;
-    -webkit-box-shadow: 0px 1px 0px 0px #1c1b18;
-    box-shadow: 0px 1px 0px 0px #1c1b18;
     background-color:transparent;
     -moz-border-radius:30px;
     -webkit-border-radius:30px;
@@ -154,6 +179,15 @@ a {
     font-size: 20px;
     margin-right: 20px;
     color: #661821 !important;
+
+}
+
+a:link {
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration:none;
 }
 
 .cl-effect-3 a {
@@ -210,7 +244,7 @@ body {
     margin: 0;
     font-size: 3em;
     font-family: "Montserrat","Helvetica",sans-serif;
-  font-weight: 400;
+    font-weight: 400;
 }
 
 .padding-button {
@@ -238,28 +272,28 @@ h3 {
     padding-top: -10px;
     margin-left: 20px;
     font-family: Montserrat;
-    color: #661821;
+    color: rgb(193,39,45) !important;
 }
 
 /*.no-border {*/
     /*border: solid 0px #c9c9c9;*/
-/*}*/
+    /*}*/
 
-#feed {
-overflow-y: scroll;
-height: 80vh;
-/*position: absolute;*/
-/* background-color: rgba(25, 20, 20, 0.7); */
-color:white;
-font-family: Verdana, Geneva, sans-serif;
-}
+    #feed {
+        overflow-y: scroll;
+        height: 80vh;
+        /*position: absolute;*/
+        /* background-color: rgba(25, 20, 20, 0.7); */
+        color:white;
+        font-family: Verdana, Geneva, sans-serif;
+    }
 
-.side-section {
-    background-color: #e8e8e8;
-    height: 90vh;
-}
+    .side-section {
+        background-color: #e8e8e8;
+        height: 90vh;
+    }
 
-.link{
-  text-align: right;
-  font-size: 2;
-}
+    .link{
+      text-align: right;
+      font-size: 2;
+  }
