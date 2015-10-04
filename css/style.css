@@ -231,3 +231,8 @@ height: 80vh;
 color:white;
 font-family: Verdana, Geneva, sans-serif;
 }
+
+.link{
+  text-align: right;
+  font-size: 2;
+}
