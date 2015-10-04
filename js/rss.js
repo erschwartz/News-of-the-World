@@ -5,7 +5,8 @@
                 var uluru = {lat: 25.2916097, lng: -107.2902839};
                 map = new google.maps.Map(document.getElementById('map'), {
                     zoom: 4,
-                    center: uluru
+                    center: uluru,
+                    styles: [{"featureType":"all","elementType":"all","stylers":[{"saturation":-100},{"gamma":0.5}]}]
                 });
 
 
@@ -79,97 +80,6 @@
                 });
 
 
-                urlSTR = 'http://feeds.bbci.co.uk/news/rss.xml?edition=int';
-                $.ajax({
-                    url: 'http://sleepy-sierra-9008.herokuapp.com/', //http://localhost:8080/
-                    type: "POST",
-                    data: urlSTR,
-                    //http://rss.nytimes.com/services/xml/rss/nyt/World.xml
-                    //http://feeds.bbci.co.uk/news/rss.xml?edition=int
-                    //http://america.aljazeera.com/content/ajam/articles.rss
-                    //http://feeds.reuters.com/Reuters/worldNews
-                    success: function (data) {
-
-                        $(data).find("item").each(function () {
-                            var title = $(this).find("title").text();
-                            var link = $(this).find("guid").text();
-                            var description = $(this).find("description").text();
-                            var randomLat = (Math.floor(Math.random() * 7) + 1) * (Math.floor(Math.random()*2) === 1 ? 1 : -1);
-                            var randomLng = (Math.floor(Math.random() * 7) + 1) * (Math.floor(Math.random()*2) === 1 ? 1 : -1);
-                            var marker = new google.maps.Marker({
-                                position: {lat: 47.162494 + randomLat, lng: 19.503304 + randomLng},
-                                map: map,
-                                title: 'BBC News'
-                                        //icon: iconBase + 'schools_maps.png' 
-                            });
-
-                            var infowindow = new google.maps.InfoWindow({
-                                content: "<a href='" + link + "'>" + title + "</a>"
-                            });
-                            marker.addListener('click', function () {
-                                infowindow.open(map, marker);
-                            });
-
-                            $("#feed").append("<div> <img src = 'img/bbc2.jpg' align='left' height='100%' width='57'/> </div>");
-                            $("#feed").append("<div> <br><br> </div>");
-                            $("#feed").append("<a href='" + link + "'>" + title + "</a></br>");
-                            $("#feed").append("<div> <br><br> </div>");
-
-                        });
-
-                    },
-                    failure: function (err) {
-                        console.log(err);
-                    }
-                });
-
- 
-
-                urlSTR = 'http://rss.nytimes.com/services/xml/rss/nyt/World.xml';
-                $.ajax({
-                    url: 'http://sleepy-sierra-9008.herokuapp.com/', //http://localhost:8080/
-                    type: "POST",
-                    data: urlSTR,
-                    //http://rss.nytimes.com/services/xml/rss/nyt/World.xml
-                    //http://feeds.bbci.co.uk/news/rss.xml?edition=int
-                    //http://america.aljazeera.com/content/ajam/articles.rss
-                    //http://feeds.reuters.com/Reuters/worldNews
-                    success: function (data) {
-
-                        $(data).find("item").each(function () {
-                            var title = $(this).find("title").text();
-                            var link = $(this).find("guid").text();
-                            var description = $(this).find("description").text();
-                            var randomLat = (Math.floor(Math.random() * 10) + 1) * (Math.floor(Math.random()*2) === 1 ? 1 : -1);
-                            var randomLng = (Math.floor(Math.random() * 10) + 1) * (Math.floor(Math.random()*2) === 1 ? 1 : -1);
-                            var marker = new google.maps.Marker({
-                                position: {lat: 43.0759678 + randomLat, lng: -107.2902839 + randomLng},
-                                map: map,
-                                title: 'BBC News'
-                                        //icon: iconBase + 'schools_maps.png' 
-                            });
-
-                            var infowindow = new google.maps.InfoWindow({
-                                content: "<a href='" + link + "'>" + title + "</a>"
-                            });
-                            marker.addListener('click', function () {
-                                infowindow.open(map, marker);
-                            });
-
-                            $("#feed").append("<div> <img src = 'img/newyorktimes.png' align='left' height='100%' width='140'/> </div>");
-                            $("#feed").append("<div> <br><br> </div>");
-                            $("#feed").append("<a href='" + link + "'>" + title + "</a></br>");
-                            $("#feed").append("<div> <br><br> </div>");
-
-                        });
-
-                    },
-                    failure: function (err) {
-                        console.log(err);
-                    }
-                });
-
-
 					// click on search button to search.
 
 					$(".myButton").on('click', function () {
@@ -206,8 +116,9 @@
 
                                 var link = d.unescapedUrl;
                                 var title = d.title;
-
-                                $("#feed").append("<p><a href='" + link + "'>" + title + "</a></br></p>");
+                                var content = d.content;
+                                var publisher = d.publisher;
+                                $("#feed").append("<a href='"+link+"'><h1>"+title+"</h1><p>"+content+"</p><h3>"+publisher+"</h3></a>");
                             });
 
                         },
